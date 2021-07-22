@@ -34,7 +34,12 @@
     "prestart": "yarn run rebuild",
     "start": "node -r source-map-support/register .",
     "clean": "lb-clean dist *.tsbuildinfo .eslintcache",
-    "rebuild": "yarn run clean && yarn run build"
+    "rebuild": "yarn run clean && yarn run build",
+    "precoverage": "npm test",
+    "test:coverage": "lb-nyc npm run test",
+    "coverage": "open coverage/index.html",
+    "coverage:ci": "lb-nyc report --reporter=text-lcov | coveralls",
+    "test:ci": "lb-nyc npm run test"
   },
   "repository": {
     "type": "git",
