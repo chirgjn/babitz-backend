@@ -34,7 +34,13 @@
     "prestart": "yarn run rebuild",
     "start": "node -r source-map-support/register .",
     "clean": "lb-clean dist *.tsbuildinfo .eslintcache",
-    "rebuild": "yarn run clean && yarn run build"
+    "rebuild": "yarn run clean && yarn run build",
+    "precoverage": "npm test",
+    "coverage": "open coverage/index.html",
+    "coverage:ci": "lb-nyc report --reporter=lcov --report-dir=.nyc_coverage",
+    "test:coverage": "lb-nyc npm run mocha",
+    "test:ci": "lb-nyc npm run mocha",
+    "commit": "cz"
   },
   "repository": {
     "type": "git",
@@ -55,15 +61,27 @@
     "@loopback/rest": "^9.3.1",
     "@loopback/rest-explorer": "^3.3.1",
     "@loopback/service-proxy": "^3.2.1",
+    "aws-sdk": "^2.953.0",
+    "loopback4-s3": "^2.2.5",
+    "multer": "^1.4.2",
     "tslib": "^2.0.0"
   },
   "devDependencies": {
     "@loopback/build": "^6.4.1",
-    "source-map-support": "^0.5.19",
-    "@loopback/testlab": "^3.4.1",
-    "@types/node": "^10.17.60",
     "@loopback/eslint-config": "^10.2.1",
+    "@loopback/testlab": "^3.4.2",
+    "@types/multer": "^1.4.7",
+    "@types/node": "^10.17.60",
+    "cz-conventional-changelog": "3.3.0",
     "eslint": "^7.28.0",
+    "lcov-filter": "^0.1.1",
+    "mocha": "^9.0.2",
+    "source-map-support": "^0.5.19",
     "typescript": "~4.3.2"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
