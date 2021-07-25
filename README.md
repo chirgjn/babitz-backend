@@ -13,7 +13,8 @@ yarn install
 We use postgres for our database requirements. 
 
 ## [Migrate](https://loopback.io/doc/en/lb4/Database-migrations.html) database schema
-```
+
+```sh
 yarn run migrate
 ```
 
