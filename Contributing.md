@@ -2,7 +2,7 @@
 The guidelines for contribution to babitz backend project are listed below. Please go through it before any contribution.
 
 ## 1. General guidelines
-- The general guidelines for writing code. We will be using a subset of [typescript contribution guidelines](https://github.com/microsoft/TypeScript/wiki/Coding-guidelines). In case any of these conflict with loopback4 guidelines, loopback4's guideline is taken as priority. 
+- The general guidelines for writing code. We will be using a subset of [typescript contribution guidelines](https://github.com/microsoft/TypeScript/wiki/Coding-guidelines). In case any of these conflict with loopback4 guidelines, loopback4's guideline is taken as priority.
 
   ### Names
     1. Use PascalCase for type names.
@@ -53,7 +53,7 @@ The guidelines for contribution to babitz backend project are listed below. Plea
 
 ## Loopback4 Guidelines
 - File Naming Convention taken from [angular's file naming convention](https://angular.io/guide/styleguide#separate-file-names-with-dots-and-dashes). Loopback internally uses this so this decision is taken to have consistency in file names. This states we use a file name to also represent what it does or is.
-    - an example is "user.model.ts" here we can see the file is a "model" and the name of the model is "user". 
+    - an example is "user.model.ts" here we can see the file is a "model" and the name of the model is "user".
 - We clearly define our api spec before coding the models and endpoints for them. Please have a look at how to [import api spec in loopback 4.](https://loopback.io/doc/en/lb4/OpenAPI-generator.html)
 
 
@@ -63,13 +63,13 @@ Following the loopback4 directory structure we have the following directories an
     - __controllers__ : These contain the api endpoints and their request/response structures.
     - __datasources__ : Contains the datasources used in the codebase.
     - __models__ : Contains all the data models used across the whole codebase.
-    - __repositories__: Contains the implementations of each model. The database crud and other methods. 
+    - __repositories__: Contains the implementations of each model. The database crud and other methods.
     - __ __tests__ __: Contains the tests for each model (unit , acceptence, integration)
-        - unit 
+        - unit
         - acceptence
         - integration
 
-We will follow the same structure for our codebase. 
+We will follow the same structure for our codebase.
 ```
 ├── src
 │   ├── controllers
@@ -110,12 +110,12 @@ We will follow the same structure for our codebase.
 ├── yarn-error.log
 ├── Contribution-guidelines.md
 └── yarn.lock
-```          	
+```
 
 
 
 ## Linting and Formatting
- Apart from the typescript [Style](https://github.com/microsoft/TypeScript/wiki/Coding-guidelines#style) we use prettier and ESLint. 
+ Apart from the typescript [Style](https://github.com/microsoft/TypeScript/wiki/Coding-guidelines#style) we use prettier and ESLint.
 - Use ESLint to statically analyse the source code and detect common problems. Config used from loopback/eslint-config.
 - Prettier to keep our code always formatted the same way. Config stored in .prettierrc
 - Both of these can be done with `  npm run lint:fix  `
@@ -139,15 +139,17 @@ Commit messages should adhere to the following guidelines:
 - Separate subject from body with a blank line
 - Use the imperative mood in the subject line
 - Do not end the subject line with a period
-- Limit the subject line to 50 characters
-- Capitalize the subject line
 - Wrap the body at 72 characters
 
-Reference: [how to write good commits](https://gist.github.com/qoomon/5dfcdf8eec66a051ecd85625518cfd13
- https://chris.beams.io/posts/git-commit)
+Reference: [how to write good commits](https://www.conventionalcommits.org/en/v1.0.0/)
+Please use [commitizen](https://www.npmjs.com/package/commitizen) to format your commit messages.
+steps to use commitizen:
+- Install commitizen globally with, "npm install commitizen -g"
+- Setup commitizen's conventional-changelog adapter in your local setup with "commitizen init cz-conventional-changelog --yarn --dev --exact"
 
-## How to Raise Pull Requests 
-- Avoid making large pull requests so that code review gets easier.
+## How to Raise Pull Requests
+- We use trunk based developement for our developement. Please use the same.
+- Create small pull requests with branch names that reflect the purpose of the pull request. Example branch name : database-setup shows we are doing database setup.
 - Use either one feature/fix or one commit per pull request only.
 
 
