@@ -1,6 +1,5 @@
 # Babitz
-This application is the api server for Babitz. This application is created using [LoopBack 4 CLI](https://loopback.io/doc/en/lb4/Command-line-interface.html) with the
-[initial project layout](https://loopback.io/doc/en/lb4/Loopback-application-layout.html).
+This is the api server for Babitz.
 
 ## Install dependencies
 
