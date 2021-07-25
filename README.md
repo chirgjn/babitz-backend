@@ -10,7 +10,7 @@ Whenever dependencies in `package.json` are changed, run the following command:
 ```sh
 yarn install
 ```
-## Install [Postgres Database](https://www.postgresql.org/download/)
+## Install [Postgres Database](https://www.postgresql.org)
 We use postgres for our database requirements. 
 
 ## [Migrate](https://loopback.io/doc/en/lb4/Database-migrations.html) database schema
