@@ -4,7 +4,7 @@ The guidelines for contribution to babitz backend project are listed below. Plea
 ## 1. General guidelines
 - The general guidelines for writing code. We will be using a subset of [typescript contribution guidelines](https://github.com/microsoft/TypeScript/wiki/Coding-guidelines). In case any of these conflict with loopback4 guidelines, loopback4's guideline is taken as priority.
 
-  ### Names
+  ### [Names](https://github.com/microsoft/TypeScript/wiki/Coding-guidelines#names)
     1. Use PascalCase for type names.
     2. Use PascalCase for enum values.
     3. Use camelCase for function names.
@@ -12,30 +12,30 @@ The guidelines for contribution to babitz backend project are listed below. Plea
     5. Do not use `_` as a prefix for private properties.
     6. Use whole words in names when possible.
 
-  ### Types
+  ### [Types](https://github.com/microsoft/TypeScript/wiki/Coding-guidelines#components)
     1. Do not export types/functions unless you need to share it across multiple components.
     2. Do not introduce new types/values to the global namespace.
     3. Shared types should be defined in `types.ts`.
     4. Within a file, type definitions should come first.
 
-  ### `null` and `undefined`
+  ### [`null` and `undefined`](https://github.com/microsoft/TypeScript/wiki/Coding-guidelines#null-and-undefined)
     1. Use `undefined`. Do not use null.
 
-  ### General Assumptions
+  ### [General Assumptions](https://github.com/microsoft/TypeScript/wiki/Coding-guidelines#general-assumptions)
     1. Consider objects like Nodes, Symbols, etc. as immutable outside the component that created them. Do not change them.
     2. Consider arrays as immutable by default after creation.
 
-  ### Flags
+  ### [Flags](https://github.com/microsoft/TypeScript/wiki/Coding-guidelines#flags)
     1. More than 2 related Boolean properties on a type should be turned into a flag.
 
-  ### Comments
+  ### [Comments](https://github.com/microsoft/TypeScript/wiki/Coding-guidelines#comments)
     1. Use JSDoc style comments for functions, interfaces, enums, and classes.
 
-  ### General Constructs
+  ### [General Constructs](https://github.com/microsoft/TypeScript/wiki/Coding-guidelines#comments)
     1. Do not use `for..in` statements; instead, use `ts.forEach`, `ts.forEachKey` and `ts.forEachValue`. Be aware of their slightly different semantics.
     2. Try to use `ts.forEach`, `ts.map`, and `ts.filter` instead of loops when it is not strongly inconvenient.
 
-  ### Style
+  ### [Style](https://github.com/microsoft/TypeScript/wiki/Coding-guidelines#style)
     1. Use arrow functions over anonymous function expressions.
     2. Only surround arrow function parameters when necessary. <br />For example, `(x) => x + x` is wrong but the following are correct:
         - `x => x + x`
@@ -51,7 +51,7 @@ The guidelines for contribution to babitz backend project are listed below. Plea
     7. `else` goes on a separate line from the closing curly brace.
     8. Use 1 tab per indentation.
 
-## Loopback4 Guidelines
+## [Loopback4 Guidelines](https://github.com/microsoft/TypeScript/wiki/Coding-guidelines)
 - File Naming Convention taken from [angular's file naming convention](https://angular.io/guide/styleguide#separate-file-names-with-dots-and-dashes). Loopback internally uses this so this decision is taken to have consistency in file names. This states we use a file name to also represent what it does or is.
     - an example is "user.model.ts" here we can see the file is a "model" and the name of the model is "user".
 - We clearly define our api spec before coding the models and endpoints for them. Please have a look at how to [import api spec in loopback 4.](https://loopback.io/doc/en/lb4/OpenAPI-generator.html)
@@ -119,13 +119,14 @@ We will follow the same structure for our codebase.
 - Use ESLint to statically analyse the source code and detect common problems. Config used from loopback/eslint-config.
 - Prettier to keep our code always formatted the same way. Config stored in .prettierrc
 - Both of these can be done with `  npm run lint:fix  `
+- Instructions on [how to use prettier cli.](https://prettier.io/docs/en/cli.html)
 
 
-## Testing
-
+## [Testing](https://loopback.io/doc/en/lb4/Testing-your-application.html)
 - Write tests in the __test__ folder.
 - Make sure you cover at least 50% of the test-case scenario.
-- You can generate "test coverage" using the `npm run test:coverage` command.
+- You can generate "test coverage" using the `npm run test:coverage` command. Coverage is given by [nyc](https://www.npmjs.com/package/nyc). 
+- Use [loobpack/testlab](https://loopback.io/doc/en/lb4/apidocs.testlab.html) for writing unit and acceptance tests. 
 
 
 ## Commit messages
