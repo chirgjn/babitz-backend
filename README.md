@@ -67,7 +67,7 @@ yarn test
 ```
 
 ## [Contribution guidelines](https://github.com/pesto-students/babitz-backend/blob/Contribution.md/Contributing.md)
-Please go through the [contribution guidelines](https://github.com/pesto-students/babitz-backend/blob/Contribution.md/Contributing.md) before raising any pull requests. 
+If you wish to contribute, please go through the [contribution guidelines](https://github.com/pesto-students/babitz-backend/blob/Contribution.md/Contributing.md). 
 
 
 
