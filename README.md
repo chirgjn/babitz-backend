@@ -1,6 +1,5 @@
 # Babitz
-
-This application is generated using [LoopBack 4 CLI](https://loopback.io/doc/en/lb4/Command-line-interface.html) with the
+This application is the api server for Babitz. This application is created using [LoopBack 4 CLI](https://loopback.io/doc/en/lb4/Command-line-interface.html) with the
 [initial project layout](https://loopback.io/doc/en/lb4/Loopback-application-layout.html).
 
 ## Install dependencies
@@ -10,6 +9,13 @@ Whenever dependencies in `package.json` are changed, run the following command:
 
 ```sh
 yarn install
+```
+## Install [Postgres Database](https://www.postgresql.org/download/)
+We use postgres for our database requirements. 
+
+## [Migrate](https://loopback.io/doc/en/lb4/Database-migrations.html) database schema
+```
+yarn run migrate
 ```
 
 ## Run the application
@@ -60,6 +66,11 @@ yarn run lint:fix
 ```sh
 yarn test
 ```
+
+## [Contribution guidelines](https://github.com/pesto-students/babitz-backend/blob/Contribution.md/Contributing.md)
+Please go through the [contribution guidelines](https://github.com/pesto-students/babitz-backend/blob/Contribution.md/Contributing.md) before raising any pull requests. 
+
+
 
 ## What's next
 
