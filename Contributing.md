@@ -129,12 +129,8 @@ Commit messages should adhere to the following guidelines:
 
 Reference: [how to write good commits](https://www.conventionalcommits.org/en/v1.0.0/)
 Please use [commitizen](https://www.npmjs.com/package/commitizen) to format your commit messages.
-steps to use commitizen:
-- Install commitizen globally with, "npm install commitizen -g"
-- Setup commitizen's conventional-changelog adapter in your local setup with "commitizen init cz-conventional-changelog --yarn --dev --exact"
 
 ## How to Raise Pull Requests
 - We use trunk based developement for our developement. Please use the same.
 - Create small pull requests with branch names that reflect the purpose of the pull request. Example branch name : database-setup shows we are doing database setup.
 - Use either one feature/fix or one commit per pull request only.
-
