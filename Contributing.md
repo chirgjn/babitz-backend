@@ -1,7 +1,7 @@
-# Contribution guidelines
+# Contributing to this repository
 The guidelines for contribution to babitz backend project are listed below. Please go through it before any contribution.
 
-## 1. General guidelines
+## General guidelines
 - The general guidelines for writing code. We will be using a subset of [typescript contribution guidelines](https://github.com/microsoft/TypeScript/wiki/Coding-guidelines). In case any of these conflict with loopback4 guidelines, loopback4's guideline is taken as priority.
 
   ### [Names](https://github.com/microsoft/TypeScript/wiki/Coding-guidelines#names)
@@ -36,14 +36,14 @@ The guidelines for contribution to babitz backend project are listed below. Plea
     2. Try to use `ts.forEach`, `ts.map`, and `ts.filter` instead of loops when it is not strongly inconvenient.
 
 
-## [Loopback4 Guidelines](https://github.com/microsoft/TypeScript/wiki/Coding-guidelines)
+## File naming convention
 - File Naming Convention taken from [angular's file naming convention](https://angular.io/guide/styleguide#separate-file-names-with-dots-and-dashes). Loopback internally uses this so this decision is taken to have consistency in file names. This states we use a file name to also represent what it does or is.
     - an example is "user.model.ts" here we can see the file is a "model" and the name of the model is "user".
 - We clearly define our api spec before coding the models and endpoints for them. Please have a look at how to [import api spec in loopback 4.](https://loopback.io/doc/en/lb4/OpenAPI-generator.html)
 
 
-## Directory structure
-Following the loopback4 directory structure we have the following directories and their purpose.
+## [Directory structure](https://loopback.io/doc/en/lb4/Loopback-application-layout.html)
+Following the [loopback4 directory structure](https://loopback.io/doc/en/lb4/Loopback-application-layout.html) we have the following directories and their purpose.
 - Under .src we have 5 directories.
     - __controllers__ : These contain the api endpoints and their request/response structures.
     - __datasources__ : Contains the datasources used in the codebase.
@@ -101,11 +101,10 @@ We will follow the same structure for our codebase.
 
 ## Linting and Formatting
  Apart from the typescript [Style](https://github.com/microsoft/TypeScript/wiki/Coding-guidelines#style) we use prettier and ESLint.
-- Use ESLint to statically analyse the source code and detect common problems. Config used from loopback/eslint-config.
-- Prettier to keep our code always formatted the same way. Config stored in .prettierrc
+- Use [ESLint](https://eslint.org/) to statically analyse the source code and detect common problems. Config used from loopback/eslint-config.
+- [Prettier](https://prettier.io/) to keep our code always formatted the same way. Config stored in .prettierrc
 - Both of these can be done with `  npm run lint:fix  `
-- Instructions on [how to use prettier cli.](https://prettier.io/docs/en/cli.html)
-
+- To run a linting and formatting check run `npm run lint` 
 
 ## [Testing](https://loopback.io/doc/en/lb4/Testing-your-application.html)
 - Write tests in the __test__ folder.
@@ -131,6 +130,6 @@ Reference: [how to write good commits](https://www.conventionalcommits.org/en/v1
 Please use [commitizen](https://www.npmjs.com/package/commitizen) to format your commit messages.
 
 ## How to Raise Pull Requests
-- We use trunk based developement for our developement. Please use the same.
+- We use [trunk based developement](https://trunkbaseddevelopment.com/) for our developement. Please use the same.
 - Create small pull requests with branch names that reflect the purpose of the pull request. Example branch name : database-setup shows we are doing database setup.
 - Use either one feature/fix or one commit per pull request only.
