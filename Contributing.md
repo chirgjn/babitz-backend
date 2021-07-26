@@ -35,21 +35,6 @@ The guidelines for contribution to babitz backend project are listed below. Plea
     1. Do not use `for..in` statements; instead, use `ts.forEach`, `ts.forEachKey` and `ts.forEachValue`. Be aware of their slightly different semantics.
     2. Try to use `ts.forEach`, `ts.map`, and `ts.filter` instead of loops when it is not strongly inconvenient.
 
-  ### [Style](https://github.com/microsoft/TypeScript/wiki/Coding-guidelines#style)
-    1. Use arrow functions over anonymous function expressions.
-    2. Only surround arrow function parameters when necessary. <br />For example, `(x) => x + x` is wrong but the following are correct:
-        - `x => x + x`
-        - `(x,y) => x + y`
-        - `<T>(x: T, y: T) => x === y`
-    3. Always surround loop and conditional bodies with curly braces. Statements on the same line are allowed to omit braces.
-    4. Open curly braces always go on the same line as whatever necessitates them.
-    5. Parenthesized constructs should have no surrounding whitespace. <br />A single space follows commas, colons, and semicolons in those constructs. For example:
-        - `for (var i = 0, n = str.length; i < 10; i++) { }`
-        - `if (x < 10) { }`
-        - `function f(x: number, y: string): void { }`
-    6. Use a single declaration per variable statement <br />(i.e. use `var x = 1; var y = 2;` over `var x = 1, y = 2;`).
-    7. `else` goes on a separate line from the closing curly brace.
-    8. Use 1 tab per indentation.
 
 ## [Loopback4 Guidelines](https://github.com/microsoft/TypeScript/wiki/Coding-guidelines)
 - File Naming Convention taken from [angular's file naming convention](https://angular.io/guide/styleguide#separate-file-names-with-dots-and-dashes). Loopback internally uses this so this decision is taken to have consistency in file names. This states we use a file name to also represent what it does or is.
@@ -152,5 +137,4 @@ steps to use commitizen:
 - We use trunk based developement for our developement. Please use the same.
 - Create small pull requests with branch names that reflect the purpose of the pull request. Example branch name : database-setup shows we are doing database setup.
 - Use either one feature/fix or one commit per pull request only.
-
 
