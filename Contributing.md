@@ -2,7 +2,7 @@
 The guidelines for contribution to babitz backend project are listed below. Please go through it before any contribution.
 
 ## General guidelines
-- The general guidelines for writing code. We will be using a subset of [typescript contribution guidelines](https://github.com/microsoft/TypeScript/wiki/Coding-guidelines). In case any of these conflict with loopback4 guidelines, loopback4's guideline is taken as priority.
+- The general guidelines for writing code. We will be using a subset of [typescript contribution guidelines](https://github.com/microsoft/TypeScript/wiki/Coding-guidelines). In case any of these conflict with [loopback4 guidelines](https://loopback.io/doc/en/lb4/Best-practices.html), loopback4's guideline is taken as priority.
 
   ### [Names](https://github.com/microsoft/TypeScript/wiki/Coding-guidelines#names)
     1. Use PascalCase for type names.
