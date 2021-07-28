@@ -11,10 +11,9 @@ export class Restaurant extends Entity {
       dataType: 'uuid',
     },
   })
-  id?: string;
+  id: string;
 
   @property({
-
     type: 'string',
     description: "Restaurant's name",
     index: {unique: true},
@@ -25,7 +24,6 @@ export class Restaurant extends Entity {
    * Restaurant's email
    */
   @property({
-
     type: 'string',
     format: 'email',
     description: "Restaurant's email",
@@ -37,7 +35,6 @@ export class Restaurant extends Entity {
    * Restaurant's mobile number
    */
   @property({
-
     type: 'string',
     description: "Restaurant's mobile number",
   })
@@ -47,7 +44,6 @@ export class Restaurant extends Entity {
    * Restaurant's address
    */
   @property({
-
     type: 'string',
     description: "Restaurant's address",
   })
@@ -57,7 +53,6 @@ export class Restaurant extends Entity {
    * Restaurant's upi Id on a upi platform
    */
   @property({
-
     type: 'string',
     description: "Restaurant's upi Id on a upi platform",
   })
@@ -67,7 +62,6 @@ export class Restaurant extends Entity {
    * Restaurant's chosen template Id
    */
   @property({
-
     type: 'string',
     description: "Restaurant's chosen template Id",
   })
@@ -77,7 +71,6 @@ export class Restaurant extends Entity {
    * Restaurant's logo url
    */
   @property({
-
     type: 'string',
     description: "Restaurant's logo url",
   })
@@ -87,7 +80,6 @@ export class Restaurant extends Entity {
    * Restaurant's self description
    */
   @property({
-
     type: 'string',
     description: "Restaurant's self description",
   })
@@ -97,7 +89,6 @@ export class Restaurant extends Entity {
    * Restaurant's banner imageUrl
    */
   @property({
-
     type: 'string',
     description: "Restaurant's banner imageUrl",
   })

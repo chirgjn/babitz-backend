@@ -8,9 +8,7 @@ export class RestaurantRepository extends DefaultCrudRepository<
   typeof Restaurant.prototype.id,
   RestaurantRelations
 > {
-  constructor(
-    @inject('datasources.pg') dataSource: PgDataSource,
-  ) {
+  constructor(@inject('datasources.pg') dataSource: PgDataSource) {
     super(Restaurant, dataSource);
   }
 }
