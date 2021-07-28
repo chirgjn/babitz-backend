@@ -68,5 +68,5 @@ yarn run lint:fix
 yarn test
 ```
 
-## [Contribution guidelines](https://github.com/pesto-students/babitz-backend/blob/Contribution.md/Contributing.md)
+## Want to contribute?
 If you wish to contribute, please go through the [contribution guidelines](https://github.com/pesto-students/babitz-backend/blob/Contribution.md/Contributing.md). 
