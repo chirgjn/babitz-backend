@@ -10,7 +10,7 @@ import {
   requestBody,
   RequestContext,
   response,
-  RestHttpErrors,
+  RestHttpErrors
 } from '@loopback/rest';
 import HttpErrors from 'http-errors';
 import {getEmailFromHeader} from '../lib/header-parser';
@@ -25,7 +25,7 @@ export class MyRestaurantController {
     public itemRepository: ItemRepository,
     @repository(RestaurantRepository)
     public restaurantRepository: RestaurantRepository,
-  ) {}
+  ) { }
 
   @post('/myrestaurant')
   @response(200, {
@@ -96,15 +96,14 @@ export class MyRestaurantController {
     })
     restaurant: Restaurant,
     @param.header.string('authorization') authorization: string,
-  ): Promise<Restaurant> {
+  ): Promise<Restaurant | null> {
     const email = await getEmailFromHeader(authorization);
     if (!email) {
       throw RestHttpErrors.missingRequired('{ authorization Header }');
     }
     const whereFilter: Where = {where: {email: email}};
     await this.restaurantRepository.update(restaurant, whereFilter);
-    await this.restaurantRepository.find(whereFilter);
-    return whereFilter[0];
+    return this.restaurantRepository.findOne(whereFilter);
   }
   @post('/addItems')
   @response(200, {
@@ -207,7 +206,6 @@ export class MyRestaurantController {
     if (!email) {
       throw RestHttpErrors.missingRequired('{ authorization Header }');
     }
-    const whereFilter: Where = {where: {email: email, id: id}};
-    await this.itemRepository.deleteAll(whereFilter);
+    await this.itemRepository.deleteById(id);
   }
 }
