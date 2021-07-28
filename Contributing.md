@@ -39,6 +39,7 @@ The guidelines for contribution to babitz backend project are listed below. Plea
 ## File naming convention
 - File Naming Convention taken from [angular's file naming convention](https://angular.io/guide/styleguide#separate-file-names-with-dots-and-dashes). Loopback internally uses this so this decision is taken to have consistency in file names. This states we use a file name to also represent what it does or is.
     - an example is "user.model.ts" here we can see the file is a "model" and the name of the model is "user".
+## Api Spec
 - We clearly define our api spec before coding the models and endpoints for them. Please have a look at how to [import api spec in loopback 4.](https://loopback.io/doc/en/lb4/OpenAPI-generator.html)
 
 
