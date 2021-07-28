@@ -61,6 +61,7 @@
     "@loopback/testlab": "^3.4.1",
     "@types/node": "^10.17.60",
     "eslint": "^7.28.0",
+    "firebase-admin": "^9.11.0",
     "loopback-connector-postgresql": "^5.0.1",
     "source-map-support": "^0.5.19",
     "tslib": "^2.0.0",
