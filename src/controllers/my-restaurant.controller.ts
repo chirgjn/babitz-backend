@@ -16,6 +16,7 @@ import {
   response,
   RestHttpErrors
 } from '@loopback/rest';
+import HttpErrors from 'http-errors';
 import {getEmailFromHeader} from '../lib/header-parser';
 import {Restaurant} from '../models';
 import {RestaurantRepository} from '../repositories';
@@ -77,12 +78,8 @@ export class MyRestaurantController {
     }
     let whereFilter: Where = {where: {email: email}};
     let result = await this.restaurantRepository.findOne(whereFilter);
-    console.log("result", result, "result");
     if (!result) {
-      let err = new Error("not registered");
-      err.message = "restaurant not registered with babitz",
-        err.name = "NotFoundError";
-      throw err;
+      throw new HttpErrors.NotFound("restaurant not registered");
     }
     return result;
   }
