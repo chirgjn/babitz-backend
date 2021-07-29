@@ -102,8 +102,15 @@ export class MyRestaurantController {
       throw RestHttpErrors.missingRequired('{ authorization Header }');
     }
     const whereFilter: Where = {where: {email: email}};
-    await this.restaurantRepository.update(restaurant, whereFilter);
-    return this.restaurantRepository.findOne(whereFilter);
+    let res = await this.restaurantRepository.findOne(whereFilter);
+    if (res) {
+      restaurant.id = res.id;
+      await this.restaurantRepository.updateById(res.id, restaurant);
+      return this.restaurantRepository.findOne(whereFilter);
+    } else {
+      throw new HttpErrors.NotFound('restaurant not registered');
+    }
+
   }
   @post('/addItems')
   @response(200, {
