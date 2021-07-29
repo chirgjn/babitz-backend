@@ -4,46 +4,45 @@ The guidelines for contribution to babitz backend project are listed below. Plea
 ## General guidelines
 The general guidelines for writing code. We will be using a subset of [typescript contribution guidelines](https://github.com/microsoft/TypeScript/wiki/Coding-guidelines). In case any of these conflict with [loopback4 guidelines](https://loopback.io/doc/en/lb4/Best-practices.html), loopback4's guideline is taken as priority.
 
-  ### [Names](https://github.com/microsoft/TypeScript/wiki/Coding-guidelines#names)
-    1. Use PascalCase for type names.
-    2. Use PascalCase for enum values.
-    3. Use camelCase for function names.
-    4. Use camelCase for property names and local variables.
-    5. Do not use `_` as a prefix for private properties.
-    6. Use whole words in names when possible.
+### [Names](https://github.com/microsoft/TypeScript/wiki/Coding-guidelines#names)
+1. Use PascalCase for type names.
+2. Use PascalCase for enum values.
+3. Use camelCase for function names.
+4. Use camelCase for property names and local variables.
+5. Do not use `_` as a prefix for private properties.
+6. Use whole words in names when possible.
 
-  ### [Types](https://github.com/microsoft/TypeScript/wiki/Coding-guidelines#components)
-    1. Do not export types/functions unless you need to share it across multiple components.
-    2. Do not introduce new types/values to the global namespace.
-    3. Shared types should be defined in `types.ts`.
-    4. Within a file, type definitions should come first.
+### [Types](https://github.com/microsoft/TypeScript/wiki/Coding-guidelines#components)
+1. Do not export types/functions unless you need to share it across multiple components.
+2. Do not introduce new types/values to the global namespace.
+3. Shared types should be defined in `types.ts`.
+4. Within a file, type definitions should come first.
 
-  ### [`null` and `undefined`](https://github.com/microsoft/TypeScript/wiki/Coding-guidelines#null-and-undefined)
-    1. Use `undefined`. Do not use null.
+### [`null` and `undefined`](https://github.com/microsoft/TypeScript/wiki/Coding-guidelines#null-and-undefined)
+1. Use `undefined`. Do not use null.
 
-  ### [General Assumptions](https://github.com/microsoft/TypeScript/wiki/Coding-guidelines#general-assumptions)
-    1. Consider objects like Nodes, Symbols, etc. as immutable outside the component that created them. Do not change them.
-    2. Consider arrays as immutable by default after creation.
+### [General Assumptions](https://github.com/microsoft/TypeScript/wiki/Coding-guidelines#general-assumptions)
+1. Consider objects like Nodes, Symbols, etc. as immutable outside the component that created them. Do not change them.
+2. Consider arrays as immutable by default after creation.
 
-  ### [Flags](https://github.com/microsoft/TypeScript/wiki/Coding-guidelines#flags)
-    1. More than 2 related Boolean properties on a type should be turned into a flag.
+### [Flags](https://github.com/microsoft/TypeScript/wiki/Coding-guidelines#flags)
+1. More than 2 related Boolean properties on a type should be turned into a flag.
 
-  ### [Comments](https://github.com/microsoft/TypeScript/wiki/Coding-guidelines#comments)
-    1. Use JSDoc style comments for functions, interfaces, enums, and classes.
+### [Comments](https://github.com/microsoft/TypeScript/wiki/Coding-guidelines#comments)
+1. Use JSDoc style comments for functions, interfaces, enums, and classes.
 
-  ### [General Constructs](https://github.com/microsoft/TypeScript/wiki/Coding-guidelines#comments)
-    1. Do not use `for..in` statements; instead, use `ts.forEach`, `ts.forEachKey` and `ts.forEachValue`. Be aware of their slightly different semantics.
-    2. Try to use `ts.forEach`, `ts.map`, and `ts.filter` instead of loops when it is not strongly inconvenient.
-
+### [General Constructs](https://github.com/microsoft/TypeScript/wiki/Coding-guidelines#comments)
+1. Do not use `for..in` statements; instead, use `ts.forEach`, `ts.forEachKey` and `ts.forEachValue`. Be aware of their slightly different semantics.
+2. Try to use `ts.forEach`, `ts.map`, and `ts.filter` instead of loops when it is not strongly inconvenient.
 
 ## File naming convention
 - File Naming Convention taken from [angular's file naming convention](https://angular.io/guide/styleguide#separate-file-names-with-dots-and-dashes). Loopback internally uses this so this decision is taken to have consistency in file names. This states we use a file name to also represent what it does or is.
     - an example is "user.model.ts" here we can see the file is a "model" and the name of the model is "user".
-## Api Spec
-- We clearly define our api spec before coding the models and endpoints for them. Please have a look at how to [import api spec in loopback 4.](https://loopback.io/doc/en/lb4/OpenAPI-generator.html)
 
+## API Specification
+- We clearly define our [api spec](https://app.swaggerhub.com/apis/M-0-N-K/babitz-backend/1.0.0) before coding the models and endpoints for them. Please have a look at how to [import api spec in loopback 4.](https://loopback.io/doc/en/lb4/OpenAPI-generator.html)
 
-## [Directory structure](https://loopback.io/doc/en/lb4/Loopback-application-layout.html)
+## Directory structure
 Following the [loopback4 directory structure](https://loopback.io/doc/en/lb4/Loopback-application-layout.html) we have the following directories and their purpose.
 - Under .src we have 5 directories.
     - __controllers__ : These contain the api endpoints and their request/response structures.
@@ -98,10 +97,8 @@ We will follow the same structure for our codebase.
 └── yarn.lock
 ```
 
-
-
 ## Linting and Formatting
- Apart from the typescript [Style](https://github.com/microsoft/TypeScript/wiki/Coding-guidelines#style) we use prettier and ESLint.
+ We use Prettier and ESLint for code formatting and static type checking respectively.
 - Use [ESLint](https://eslint.org/) to statically analyse the source code and detect common problems. Config used from loopback/eslint-config.
 - [Prettier](https://prettier.io/) to keep our code always formatted the same way. Config stored in .prettierrc
 - Both of these can be done with `  npm run lint:fix  `
@@ -113,9 +110,7 @@ We will follow the same structure for our codebase.
 - You can generate "test coverage" using the `npm run test:coverage` command. Coverage is given by [nyc](https://www.npmjs.com/package/nyc). 
 - Use [loobpack/testlab](https://loopback.io/doc/en/lb4/apidocs.testlab.html) for writing unit and acceptance tests. 
 
-
 ## Commit messages
-
 Commit messages should adhere to the following guidelines:
 
 - Should be in active case
