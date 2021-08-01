@@ -1,3 +1,4 @@
+import {RestBindings} from '@loopback/rest';
 import {ApplicationConfig, BabitzApplication} from './application';
 
 export * from './application';
@@ -10,7 +11,11 @@ export async function main(options: ApplicationConfig = {}) {
   const url = app.restServer.url;
   console.log(`Server is running at ${url}`);
   console.log(`Try ${url}/ping`);
-
+  app.bind(RestBindings.REQUEST_BODY_PARSER_OPTIONS).to({
+    text: {limit: '1MB'},
+    json: {limit: '4MB'},
+    stream: {limit: '10MB'},
+  });
   return app;
 }
 

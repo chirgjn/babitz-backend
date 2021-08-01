@@ -60,14 +60,19 @@
     "@loopback/service-proxy": "^3.2.1",
     "@loopback/testlab": "^3.4.1",
     "@types/node": "^10.17.60",
+    "aws-sdk": "^2.958.0",
     "eslint": "^7.28.0",
     "firebase-admin": "^9.11.0",
     "loopback-connector-postgresql": "^5.0.1",
+    "multer": "^1.4.2",
+    "multer-s3": "^2.9.0",
     "source-map-support": "^0.5.19",
     "tslib": "^2.0.0",
     "typescript": "~4.3.2"
   },
   "devDependencies": {
+    "@types/multer": "^1.4.7",
+    "@types/multer-s3": "^2.7.10",
     "cz-conventional-changelog": "3.3.0"
   },
   "config": {
