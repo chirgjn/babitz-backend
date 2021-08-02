@@ -11,7 +11,7 @@ export class Item extends Entity {
       dataType: 'uuid',
     },
   })
-  id: string;
+  id?: string;
 
   @property({
     type: 'string',
@@ -42,7 +42,7 @@ export class Item extends Entity {
     type: 'number',
     default: 0,
   })
-  price?: Number;
+  price: number;
 
   @property({
     type: 'boolean',

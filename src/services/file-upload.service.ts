@@ -3,7 +3,7 @@ import {
   config,
   ContextTags,
   injectable,
-  Provider
+  Provider,
 } from '@loopback/core';
 import {RestHttpErrors} from '@loopback/rest';
 import multer from 'multer';

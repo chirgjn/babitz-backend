@@ -43,7 +43,7 @@ export class User extends Entity {
   mobileNumber?: string;
 
   @property({
-    type: Location
+    type: Location,
   })
   location?: Location;
 

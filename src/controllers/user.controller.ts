@@ -1,27 +1,29 @@
+import {repository, Where} from '@loopback/repository';
 import {
-  repository,
-  Where
-} from '@loopback/repository';
-import {
+  del,
   get,
-  getModelSchemaRef, HttpErrors, param,
-  patch, post,
+  getModelSchemaRef,
+  HttpErrors,
+  param,
+  patch,
+  post,
   requestBody,
   response,
-  RestHttpErrors
+  RestHttpErrors,
 } from '@loopback/rest';
 import {getEmailFromHeader} from '../lib/header-parser';
-import {User} from '../models';
-import {ItemRepository, UserRepository} from '../repositories';
+import {Cart, User} from '../models';
+import {CartRepository, ItemRepository, UserRepository} from '../repositories';
 
 export class UserController {
   constructor(
     @repository(UserRepository)
     public userRepository: UserRepository,
-
+    @repository(CartRepository)
+    public cartRepository: CartRepository,
     @repository(ItemRepository)
     public itemRepository: ItemRepository,
-  ) { }
+  ) {}
 
   @post('/registerUser')
   @response(200, {
@@ -34,7 +36,7 @@ export class UserController {
         'application/json': {
           schema: getModelSchemaRef(User, {
             title: 'NewUser',
-            exclude: ['id', 'email']
+            exclude: ['id', 'email'],
           }),
         },
       },
@@ -62,8 +64,8 @@ export class UserController {
           schema: getModelSchemaRef(User, {
             title: 'UserDetails',
             exclude: ['id', 'email'],
-            partial: true
-          })
+            partial: true,
+          }),
         },
       },
     })
@@ -75,7 +77,7 @@ export class UserController {
       throw RestHttpErrors.missingRequired('{ authorization Header }');
     }
     const whereFilter: Where = {where: {email: email}};
-    let userRecord = await this.userRepository.findOne(whereFilter);
+    const userRecord = await this.userRepository.findOne(whereFilter);
     if (userRecord) {
       await this.userRepository.updateById(userRecord.id, user);
       return this.userRepository.findOne(whereFilter);
@@ -101,12 +103,170 @@ export class UserController {
       throw RestHttpErrors.missingRequired('{ authorization Header }');
     }
     const whereFilter: Where = {where: {email: email}};
-    let userRecord = await this.userRepository.findOne(whereFilter);
+    const userRecord = await this.userRepository.findOne(whereFilter);
     if (userRecord) {
       return userRecord;
     } else {
       throw new HttpErrors.NotFound('user not registered');
     }
   }
+  @get('/getCart')
+  @response(200, {
+    description: 'Cart model instance',
+    content: {
+      'application/json': {
+        schema: getModelSchemaRef(Cart, {includeRelations: false}),
+      },
+    },
+  })
+  async getMyCart(
+    @param.query.string('restaurantId') restaurantId: string,
+    @param.header.string('authorization') authorization: string,
+  ): Promise<Cart> {
+    const email = await getEmailFromHeader(authorization);
+    if (!email) {
+      throw RestHttpErrors.missingRequired('{ authorization Header }');
+    }
+    const whereFilter: Where = {where: {email: email}};
+    const userRecord = await this.userRepository.findOne(whereFilter);
+    if (userRecord) {
+      const cartFilter: Where = {
+        where: {userId: userRecord.id, restaurantId: restaurantId},
+      };
+      const cartRecord = await this.cartRepository.findOne(cartFilter);
+      if (cartRecord) {
+        return cartRecord;
+      } else {
+        const cart = {
+          userId: userRecord.id,
+          restaurantId: restaurantId,
+          amount: 0,
+          items: [],
+        };
+        const createdCart = await this.cartRepository.create(cart);
+        return createdCart;
+      }
+    } else {
+      throw new HttpErrors.NotFound('user not registered');
+    }
+  }
 
+  @get('/addToCart')
+  @response(200, {
+    description: 'Cart model instance',
+    content: {
+      'application/json': {
+        schema: getModelSchemaRef(Cart, {includeRelations: false}),
+      },
+    },
+  })
+  async addToCart(
+    @param.query.string('itemId') itemId: string,
+    @param.query.number('qty') qty: number,
+    @param.query.string('restaurantId') restaurantId: string,
+    @param.header.string('authorization') authorization: string,
+  ): Promise<Cart> {
+    const email = await getEmailFromHeader(authorization);
+    if (!email) {
+      throw RestHttpErrors.missingRequired('{ authorization Header }');
+    }
+    const uesrFilter: Where = {where: {email: email}};
+    const userRecord = await this.userRepository.findOne(uesrFilter);
+    if (userRecord) {
+      const itemFilter: Where = {
+        where: {restaurantId: restaurantId, id: itemId},
+      };
+      const itemRecord = await this.itemRepository.findOne(itemFilter);
+      if (!itemRecord) {
+        throw new HttpErrors.NotFound('item not found');
+      } else {
+        const cartFilter: Where = {
+          where: {userId: userRecord.id, restaurantId: restaurantId},
+        };
+        const cartRecord = await this.cartRepository.findOne(cartFilter);
+        if (cartRecord) {
+          /* eslint-disable */
+          (cartRecord.items as Array<any>).push({item: itemRecord, qty: qty});
+          cartRecord.amount = cartRecord.amount + itemRecord.price * qty;
+          await this.cartRepository.updateById(cartRecord.id, cartRecord);
+          return cartRecord;
+          /* eslint-enable */
+        } else {
+          const newCart = {
+            userId: userRecord.id,
+            restaurantId: restaurantId,
+            items: [
+              {
+                item: itemRecord,
+                qty: qty,
+              },
+            ],
+            amount: itemRecord.price * qty,
+          };
+          const createdCart = await this.cartRepository.create(newCart);
+          return createdCart;
+        }
+      }
+    } else {
+      throw new HttpErrors.NotFound('user not registered');
+    }
+  }
+
+  @get('/removeFromCart')
+  @response(200, {
+    description: 'Cart model instance',
+    content: {
+      'application/json': {
+        schema: getModelSchemaRef(Cart, {includeRelations: false}),
+      },
+    },
+  })
+  async removeFromCart(
+    @param.query.string('itemId') itemId: string,
+    @param.query.string('restaurantId') restaurantId: string,
+    @param.header.string('authorization') authorization: string,
+  ): Promise<Cart | void | null> {
+    const email = await getEmailFromHeader(authorization);
+    if (!email) {
+      throw RestHttpErrors.missingRequired('{ authorization Header }');
+    }
+    const uesrFilter: Where = {where: {email: email}};
+    const userRecord = await this.userRepository.findOne(uesrFilter);
+    if (userRecord) {
+      const cartFilter: Where = {
+        where: {userId: userRecord.id, restaurantId: restaurantId},
+      };
+      return this.cartRepository.findOne(cartFilter);
+    }
+  }
+
+  @del('/deleteCart')
+  @response(204, {
+    description: 'Cart DELETE success',
+  })
+  async deleteCart(
+    @param.query.string('restaurantId') restaurantId: string,
+    @param.header.string('authorization') authorization: string,
+  ): Promise<void> {
+    const email = await getEmailFromHeader(authorization);
+    if (!email) {
+      throw RestHttpErrors.missingRequired('{ authorization Header }');
+    }
+    const uesrFilter: Where = {where: {email: email}};
+    const userRecord = await this.userRepository.findOne(uesrFilter);
+    if (userRecord) {
+      const cartFilter: Where = {
+        where: {userId: userRecord.id, restaurantId: restaurantId},
+      };
+      const cartRecord = await this.cartRepository.findOne(cartFilter);
+      if (cartRecord) {
+        await this.cartRepository.deleteById(cartRecord.id);
+        return;
+      } else {
+        return;
+      }
+    } else {
+      throw new HttpErrors.NotFound('user not registered');
+    }
+  }
 }
