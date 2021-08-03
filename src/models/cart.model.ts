@@ -1,5 +1,4 @@
 import {Entity, model, property} from '@loopback/repository';
-import {getModelSchemaRef} from '@loopback/rest';
 import {Item} from '.';
 
 @model()
@@ -39,7 +38,7 @@ export class Cart extends Entity {
           type: 'number',
         },
         item: {
-          type: getModelSchemaRef(Item, {includeRelations: false}),
+          type: Item
         }
       },
       default: [],
