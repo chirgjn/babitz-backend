@@ -38,7 +38,9 @@ export class Cart extends Entity {
         qty: {
           type: 'number',
         },
-        item: getModelSchemaRef(Item, {includeRelations: false}),
+        item: {
+          type: getModelSchemaRef(Item, {includeRelations: false}),
+        }
       },
       default: [],
     },
