@@ -9,11 +9,11 @@ import {
   post,
   requestBody,
   response,
-  RestHttpErrors,
+  RestHttpErrors
 } from '@loopback/rest';
 import {getEmailFromHeader} from '../lib/header-parser';
-import {Cart, User} from '../models';
-import {CartRepository, ItemRepository, UserRepository} from '../repositories';
+import {Cart, Item, Restaurant, User} from '../models';
+import {CartRepository, ItemRepository, RestaurantRepository, UserRepository} from '../repositories';
 
 export class UserController {
   constructor(
@@ -23,7 +23,9 @@ export class UserController {
     public cartRepository: CartRepository,
     @repository(ItemRepository)
     public itemRepository: ItemRepository,
-  ) {}
+    @repository(RestaurantRepository)
+    public restaurantRepository: RestaurantRepository
+  ) { }
 
   @post('/registerUser')
   @response(200, {
@@ -267,6 +269,57 @@ export class UserController {
       }
     } else {
       throw new HttpErrors.NotFound('user not registered');
+    }
+  }
+
+  @get('/getRestaurantByName')
+  @response(200, {
+    description: 'Cart model instance',
+    content: {
+      'application/json': {
+        schema: getModelSchemaRef(Cart, {includeRelations: false}),
+      },
+    },
+  })
+  async getRestaurantByName(
+    @param.query.string('restautantName') restautantName: string,
+  ): Promise<Restaurant> {
+    const restaurantFilter: Where = {
+      where: {name: restautantName},
+    };
+    let restaurant = await this.restaurantRepository.findOne(restaurantFilter);
+    if (restaurant) {
+      return restaurant;
+    } else {
+      throw new HttpErrors.NotFound('restaurant not found');
+    }
+  }
+
+  @get('/getItemsByRestaurantName')
+  @response(200, {
+    description: 'Cart model instance',
+    content: {
+      'application/json': {
+        schema:
+        {
+          type: 'array',
+          items: getModelSchemaRef(Item)
+        }
+      }
+    },
+  })
+  async getItemsByRestaurantName(
+    @param.query.string('restautantName') restautantName: string,
+  ): Promise<Item[]> {
+    const restaurantFilter: Where = {
+      where: {name: restautantName},
+    };
+    let restaurant = await this.restaurantRepository.findOne(restaurantFilter);
+    if (restaurant) {
+      let itemFilter: Where = {where: {restaurantId: restaurant.id}};
+      return await this.itemRepository.find(itemFilter);
+    } else {
+      throw new HttpErrors.NotFound('restaurant not found');
     }
   }
 }

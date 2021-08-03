@@ -1,5 +1,5 @@
 import {Entity, model, property} from '@loopback/repository';
-import {Location} from './location.model';
+import {LocationModel} from './location-model.model';
 @model()
 export class User extends Entity {
   @property({
@@ -43,9 +43,9 @@ export class User extends Entity {
   mobileNumber?: string;
 
   @property({
-    type: Location,
+    type: 'object',
   })
-  location?: Location;
+  location?: LocationModel;
 
   constructor(data?: Partial<User>) {
     super(data);
