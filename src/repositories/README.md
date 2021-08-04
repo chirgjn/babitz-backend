@@ -1,3 +1,3 @@
 # Repositories
 
-This directory contains code for repositories provided by this app.
+This direct ory contains code for repositories provided by this app.
