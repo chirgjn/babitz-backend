@@ -5,7 +5,7 @@ users.
 
 ## VSCode setup
 
-Install the following extensions:
+Install the following  extensions:
 
  - [eslint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
  - [prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
