@@ -214,7 +214,7 @@ export class UserController {
     }
   }
 
-  @get('/removeFromCart')
+  @get('/updateWholeCart')
   @response(200, {
     description: 'Cart model instance',
     content: {
@@ -223,9 +223,14 @@ export class UserController {
       },
     },
   })
-  async removeFromCart(
-    @param.query.string('itemId') itemId: string,
-    @param.query.string('restaurantId') restaurantId: string,
+  async updateWholeCart(
+    @requestBody({
+      content: {
+        'application/json': {
+          schema: getModelSchemaRef(Cart),
+        },
+      },
+    }) cart: Cart,
     @param.header.string('authorization') authorization: string,
   ): Promise<Cart | void | null> {
     const email = await getEmailFromHeader(authorization);
@@ -235,10 +240,14 @@ export class UserController {
     const uesrFilter: Where = {where: {email: email}};
     const userRecord = await this.userRepository.findOne(uesrFilter);
     if (userRecord) {
-      const cartFilter: Where = {
-        where: {userId: userRecord.id, restaurantId: restaurantId},
-      };
-      return this.cartRepository.findOne(cartFilter);
+      let cartRecord = await this.cartRepository.findById(cart.id);
+      if (cartRecord.userId === userRecord.id) {
+        return this.cartRepository.updateById(cart.id, cart);
+      } else {
+        throw new HttpErrors.NotFound("cart doesn't belong to user");
+      }
+    } else {
+      throw new HttpErrors.NotFound("user not registered");
     }
   }
 
