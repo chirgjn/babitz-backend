@@ -4,7 +4,7 @@ import {RepositoryMixin} from '@loopback/repository';
 import {RestApplication} from '@loopback/rest';
 import {
   RestExplorerBindings,
-  RestExplorerComponent
+  RestExplorerComponent,
 } from '@loopback/rest-explorer';
 import {ServiceMixin} from '@loopback/service-proxy';
 import * as Admin from 'firebase-admin';
@@ -33,15 +33,17 @@ export class BabitzApplication extends BootMixin(
 
     this.projectRoot = __dirname;
     // Customize @loopback/boot Booter Conventions here
-    Admin.initializeApp({
-      credential: Admin.credential.cert({
-        projectId: process.env.FIREBASE_PROJECT_ID,
-        privateKey: (
-          process.env.FIREBASE_PRIVATE_KEY ?? 'nofirebaseKey'
-        ).replace(/\\n/g, '\n'),
-        clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
-      }),
-    });
+    if (!Admin.apps.length) {
+      Admin.initializeApp({
+        credential: Admin.credential.cert({
+          projectId: process.env.FIREBASE_PROJECT_ID,
+          privateKey: (
+            process.env.FIREBASE_PRIVATE_KEY ?? 'nofirebaseKey'
+          ).replace(/\\n/g, '\n'),
+          clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
+        }),
+      });
+    }
     this.bootOptions = {
       controllers: {
         // Customize ControllerBooter Conventions here

@@ -15,7 +15,7 @@ export class MySequence extends DefaultSequence {
           .then((token: any) => {
             return;
           })
-          .catch(async (error: {message: any;}) => {
+          .catch(async (error: {message: any}) => {
             return error.message;
           });
       } else {
