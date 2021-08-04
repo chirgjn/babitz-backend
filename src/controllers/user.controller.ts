@@ -214,7 +214,7 @@ export class UserController {
     }
   }
 
-  @get('/updateWholeCart')
+  @patch('/updateWholeCart')
   @response(200, {
     description: 'Cart model instance',
     content: {
