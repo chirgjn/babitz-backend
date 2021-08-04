@@ -296,7 +296,7 @@ export class UserController {
     const restaurantFilter: Where = {
       where: {name: restautantName},
     };
-    let restaurant = await this.restaurantRepository.findOne(restaurantFilter);
+    const restaurant = await this.restaurantRepository.findOne(restaurantFilter);
     if (restaurant) {
       return restaurant;
     } else {
@@ -323,10 +323,10 @@ export class UserController {
     const restaurantFilter: Where = {
       where: {name: restautantName},
     };
-    let restaurant = await this.restaurantRepository.findOne(restaurantFilter);
+    const restaurant = await this.restaurantRepository.findOne(restaurantFilter);
     if (restaurant) {
-      let itemFilter: Where = {where: {restaurantId: restaurant.id}};
-      return await this.itemRepository.find(itemFilter);
+      const itemFilter: Where = {where: {restaurantId: restaurant.id}};
+      return this.itemRepository.find(itemFilter);
     } else {
       throw new HttpErrors.NotFound('restaurant not found');
     }
