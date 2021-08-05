@@ -34,7 +34,7 @@ export class Cart extends Entity {
     item: 'array',
     itemType: CartItem
   })
-  items?: CartItem[];
+  items?: Partial<CartItem>[];
 
   constructor(data?: Partial<Cart>) {
     super(data);

@@ -21,22 +21,22 @@ export class Item extends Entity {
   @property({
     type: 'string',
   })
-  description?: string;
+  description?: string | null;
 
   @property({
     type: 'string',
   })
-  restaurantId?: string;
+  restaurantId?: string | null;
 
   @property({
     type: 'string',
   })
-  image?: string;
+  image?: string | null;
 
   @property({
     type: 'string',
   })
-  tags?: string;
+  tags?: string | null;
 
   @property({
     type: 'number',
@@ -48,7 +48,7 @@ export class Item extends Entity {
     type: 'boolean',
     default: true,
   })
-  status?: boolean;
+  status?: boolean | null;
 
   constructor(data?: Partial<Item>) {
     super(data);

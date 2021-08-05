@@ -227,7 +227,7 @@ export class UserController {
           schema: getModelSchemaRef(Cart),
         },
       },
-    }) cart: Cart,
+    }) cart: Partial<Cart>,
     @param.header.string('authorization') authorization: string,
   ): Promise<Cart | void | null> {
     const email = await getEmailFromHeader(authorization);
@@ -240,7 +240,7 @@ export class UserController {
       let cartRecord = await this.cartRepository.findById(cart.id);
       if (cartRecord.userId === userRecord.id) {
         await this.cartRepository.updateById(cart.id, cart);
-        return cartRecord;
+        return this.cartRepository.findById(cart.id);
       } else {
         throw new HttpErrors.NotFound("cart doesn't belong to user");
       }

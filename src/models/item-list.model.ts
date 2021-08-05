@@ -10,10 +10,10 @@ export class CartItem extends Model {
   qty?: number;
 
   @property({
-    type: Item,
+    type: 'object',
     required: true,
   })
-  item?: Item;
+  item?: Partial<Item>;
 
 
   constructor(data?: Partial<CartItem>) {
