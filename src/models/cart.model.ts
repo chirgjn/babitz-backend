@@ -1,5 +1,5 @@
 import {Entity, model, property} from '@loopback/repository';
-import {Item} from '.';
+import {CartItem} from './item-list.model';
 
 @model()
 export class Cart extends Entity {
@@ -31,20 +31,10 @@ export class Cart extends Entity {
   restaurantId?: string;
 
   @property({
-    schema: {
-      type: 'array',
-      items: {
-        qty: {
-          type: 'number',
-        },
-        item: {
-          type: Item
-        }
-      },
-      default: [],
-    },
+    item: 'array',
+    itemType: CartItem
   })
-  items: object;
+  items?: CartItem[];
 
   constructor(data?: Partial<Cart>) {
     super(data);

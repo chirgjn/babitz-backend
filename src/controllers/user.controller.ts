@@ -13,6 +13,7 @@ import {
 } from '@loopback/rest';
 import {getEmailFromHeader} from '../lib/header-parser';
 import {Cart, Item, Restaurant, User} from '../models';
+import {CartItem} from '../models/item-list.model';
 import {CartRepository, ItemRepository, RestaurantRepository, UserRepository} from '../repositories';
 
 export class UserController {
@@ -188,7 +189,8 @@ export class UserController {
         const cartRecord = await this.cartRepository.findOne(cartFilter);
         if (cartRecord) {
           /* eslint-disable */
-          (cartRecord.items as Array<any>).push({item: itemRecord, qty: qty});
+          let newItemList: CartItem = new CartItem({item: itemRecord, qty: qty});
+          cartRecord.items = [newItemList];
           cartRecord.amount = cartRecord.amount + itemRecord.price * qty;
           await this.cartRepository.updateById(cartRecord.id, cartRecord);
           return cartRecord;
@@ -197,12 +199,7 @@ export class UserController {
           const newCart = {
             userId: userRecord.id,
             restaurantId: restaurantId,
-            items: [
-              {
-                item: itemRecord,
-                qty: qty,
-              },
-            ],
+            items: [],
             amount: itemRecord.price * qty,
           };
           const createdCart = await this.cartRepository.create(newCart);
@@ -242,7 +239,8 @@ export class UserController {
     if (userRecord) {
       let cartRecord = await this.cartRepository.findById(cart.id);
       if (cartRecord.userId === userRecord.id) {
-        return this.cartRepository.updateById(cart.id, cart);
+        await this.cartRepository.updateById(cart.id, cart);
+        return cartRecord;
       } else {
         throw new HttpErrors.NotFound("cart doesn't belong to user");
       }
