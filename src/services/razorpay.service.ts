@@ -29,7 +29,7 @@ export class RazorpayService {
   public async createOrder(order: Order): Promise<RazorpayOrder> {
     console.log("order came", order);
     let options = {
-      amount: order.amount,
+      amount: order.amount * 100,
       currency: "INR",
       receipt: order.id
     };
