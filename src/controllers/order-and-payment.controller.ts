@@ -1,3 +1,4 @@
+import {service} from '@loopback/core';
 import {repository, Where} from '@loopback/repository';
 import {
   get,
@@ -10,6 +11,7 @@ import {Order} from '../models';
 import {OrderHistory} from '../models/order-history.model';
 import {CartRepository, ItemRepository, OrderRepository, RestaurantRepository, UserRepository} from '../repositories';
 import {OrderHistoryRepository} from '../repositories/order-history.repository';
+import {RazorpayService} from '../services';
 /**
  * operations with order:
  * place order ( cartId )
@@ -30,6 +32,7 @@ export class OrderAndPaymentController {
     public orderHistoryRepository: OrderHistoryRepository,
     @repository(RestaurantRepository)
     public restaurantRepository: RestaurantRepository,
+    @service(RazorpayService) public razorpayService: RazorpayService
   ) { }
 
   @get('/placeOrder')
@@ -58,6 +61,7 @@ export class OrderAndPaymentController {
         throw new HttpErrors.NotFound('no location set for user');
       }
       if (userCart && restaurantExists) {
+
         const newOrder: Order = new Order({
           items: userCart.items,
           amount: userCart.amount,
@@ -68,6 +72,9 @@ export class OrderAndPaymentController {
           paymentId: undefined,
           userId: userRecord.id
         });
+        let razorpayOrder = await this.razorpayService.createOrder(newOrder);
+        console.log("razorpayOrder", razorpayOrder);
+        newOrder.paymentId = razorpayOrder.id;
         const placedOrder = this.orderRepository.create(newOrder);
         await this.cartRepository.deleteById(userCart.id);
         return placedOrder;
@@ -337,7 +344,7 @@ export class OrderAndPaymentController {
     const orderFilter: Where = {where: {id: orderId}};
     const order = await this.orderRepository.findOne(orderFilter);
     if (order) {
-      order.paymentId = "paymentId";
+      order.paymentId = orderId;
       await this.orderRepository.updateById(order.id, orderFilter);
       return order;
     } else {

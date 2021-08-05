@@ -4,13 +4,13 @@ import {RepositoryMixin} from '@loopback/repository';
 import {RestApplication} from '@loopback/rest';
 import {
   RestExplorerBindings,
-  RestExplorerComponent,
+  RestExplorerComponent
 } from '@loopback/rest-explorer';
 import {ServiceMixin} from '@loopback/service-proxy';
 import * as Admin from 'firebase-admin';
 import path from 'path';
 import {MySequence} from './sequence';
-
+import {RazorpayService} from './services';
 export {ApplicationConfig};
 
 export class BabitzApplication extends BootMixin(
@@ -30,7 +30,7 @@ export class BabitzApplication extends BootMixin(
       path: '/explorer',
     });
     this.component(RestExplorerComponent);
-
+    this.service(RazorpayService);
     this.projectRoot = __dirname;
     Admin.initializeApp({
       credential: Admin.credential.cert({
