@@ -10,7 +10,7 @@ const config = {
   user: '',
   password: '',
   database: '',
-  ssl: process.env.PROD ? JSON.parse(process.env.PROD) : false
+  ssl: process.env.PROD ? JSON.parse(process.env.PROD) : false,
 };
 
 // Observe application's life cycle to disconnect the datasource when
@@ -18,8 +18,10 @@ const config = {
 // gracefully. The `stop()` method is inherited from `juggler.DataSource`.
 // Learn more at https://loopback.io/doc/en/lb4/Life-cycle.html
 @lifeCycleObserver('datasource')
-export class PgDataSource extends juggler.DataSource
-  implements LifeCycleObserver {
+export class PgDataSource
+  extends juggler.DataSource
+  implements LifeCycleObserver
+{
   static dataSourceName = 'pg';
   static readonly defaultConfig = config;
 
