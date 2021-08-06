@@ -34,7 +34,12 @@
     "prestart": "yarn run rebuild",
     "start": "node -r source-map-support/register .",
     "clean": "lb-clean dist *.tsbuildinfo .eslintcache",
-    "rebuild": "yarn run clean && yarn run build"
+    "rebuild": "yarn run clean && yarn run build",
+    "precoverage": "npm test",
+    "coverage": "open coverage/index.html",
+    "coverage:ci": "lb-nyc report --reporter=lcov --report-dir=.nyc_coverage",
+    "test:coverage": "lb-nyc yarn run test",
+    "commit": "cz"
   },
   "repository": {
     "type": "git",
@@ -59,10 +64,19 @@
     "@loopback/service-proxy": "^3.2.1",
     "@loopback/testlab": "^3.4.1",
     "@types/node": "^10.17.60",
+    "commitizen": "^4.2.4",
     "eslint": "^7.28.0",
+    "loopback-connector-postgresql": "^5.0.1",
     "source-map-support": "^0.5.19",
     "tslib": "^2.0.0",
     "typescript": "~4.3.2"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "cz-conventional-changelog": "3.3.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
 }
