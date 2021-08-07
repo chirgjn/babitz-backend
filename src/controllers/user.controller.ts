@@ -45,7 +45,7 @@ export class UserController {
       },
     })
     user: Omit<User, 'id'>,
-    @param.header.string('authorization') authorization: string,
+    @param({"name": "authorization", "in": "header", "required": true}) authorization: string,
   ): Promise<User> {
     const email = await getEmailFromHeader(authorization);
     if (!email) {
@@ -73,7 +73,7 @@ export class UserController {
       },
     })
     user: Omit<User, 'id'>,
-    @param.header.string('authorization') authorization: string,
+    @param({"name": "authorization", "in": "header", "required": true}) authorization: string,
   ): Promise<User | null> {
     const email = await getEmailFromHeader(authorization);
     if (!email) {
@@ -99,7 +99,7 @@ export class UserController {
     },
   })
   async getMyProfile(
-    @param.header.string('authorization') authorization: string,
+    @param({"name": "authorization", "in": "header", "required": true}) authorization: string,
   ): Promise<User> {
     const email = await getEmailFromHeader(authorization);
     if (!email) {
@@ -123,8 +123,8 @@ export class UserController {
     },
   })
   async getMyCart(
-    @param.query.string('restaurantId') restaurantId: string,
-    @param.header.string('authorization') authorization: string,
+    @param({"name": "restaurantId", "in": "query", "required": true}) restaurantId: string,
+    @param({"name": "authorization", "in": "header", "required": true}) authorization: string,
   ): Promise<Cart> {
     const email = await getEmailFromHeader(authorization);
     if (!email) {
@@ -164,10 +164,10 @@ export class UserController {
     },
   })
   async addToCart(
-    @param.query.string('itemId') itemId: string,
-    @param.query.number('qty') qty: number,
-    @param.query.string('restaurantId') restaurantId: string,
-    @param.header.string('authorization') authorization: string,
+    @param({"name": "restaurantId", "in": "query", "required": true}) restaurantId: string,
+    @param({"name": "itemId", "in": "query", "required": true}) itemId: string,
+    @param({"name": "qty", "in": "query", "required": true}) qty: number,
+    @param({"name": "authorization", "in": "header", "required": true}) authorization: string,
   ): Promise<Cart> {
     const email = await getEmailFromHeader(authorization);
     if (!email) {
@@ -228,7 +228,7 @@ export class UserController {
         },
       },
     }) cart: Partial<Cart>,
-    @param.header.string('authorization') authorization: string,
+    @param({"name": "authorization", "in": "header", "required": true}) authorization: string,
   ): Promise<Cart | void | null> {
     const email = await getEmailFromHeader(authorization);
     if (!email) {
@@ -254,8 +254,8 @@ export class UserController {
     description: 'Cart DELETE success',
   })
   async deleteCart(
-    @param.query.string('restaurantId') restaurantId: string,
-    @param.header.string('authorization') authorization: string,
+    @param({"name": "restaurantId", "in": "query", "required": true}) restaurantId: string,
+    @param({"name": "authorization", "in": "header", "required": true}) authorization: string,
   ): Promise<void> {
     const email = await getEmailFromHeader(authorization);
     if (!email) {
@@ -289,7 +289,7 @@ export class UserController {
     },
   })
   async getRestaurantByName(
-    @param.query.string('restautantName') restautantName: string,
+    @param({"name": "restaurantName", "in": "query", "required": true}) restautantName: string,
   ): Promise<Restaurant> {
     const restaurantFilter: Where = {
       where: {name: restautantName},
@@ -301,7 +301,6 @@ export class UserController {
       throw new HttpErrors.NotFound('restaurant not found');
     }
   }
-
   @get('/getItemsByRestaurantName')
   @response(200, {
     description: 'Cart model instance',
@@ -316,7 +315,7 @@ export class UserController {
     },
   })
   async getItemsByRestaurantName(
-    @param.query.string('restautantName') restautantName: string,
+    @param({"name": "restaurantName", "in": "query", "required": true}) restautantName: string,
   ): Promise<Item[]> {
     const restaurantFilter: Where = {
       where: {name: restautantName},

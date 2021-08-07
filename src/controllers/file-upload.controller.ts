@@ -8,7 +8,7 @@ import {
   requestBody,
   Response,
   RestBindings,
-  RestHttpErrors,
+  RestHttpErrors
 } from '@loopback/rest';
 import {FILE_UPLOAD_SERVICE} from '../keys';
 import {getEmailFromHeader} from '../lib/header-parser';
@@ -29,7 +29,7 @@ export class FileUploadController {
     @repository(RestaurantRepository)
     public restaurantRepository: RestaurantRepository,
     @inject(FILE_UPLOAD_SERVICE) private handler: FileUploadHandler,
-  ) {}
+  ) { }
   @post('/restaurantImageUpload', {
     responses: {
       200: {
@@ -47,8 +47,8 @@ export class FileUploadController {
   async restaurantResourceUpload(
     @requestBody.file()
     request: Request,
-    @param.header.string('authorization') authorization: string,
-    @param.query.string('type') type: string,
+    @param({"name": "authorization", "in": "header", "required": true}) authorization: string,
+    @param({"name": "type", "in": "query", "required": true}) type: string,
     @inject(RestBindings.Http.RESPONSE) response: Response,
   ): Promise<object> {
     const email = await getEmailFromHeader(authorization);
@@ -93,8 +93,8 @@ export class FileUploadController {
   async itemImageUpload(
     @requestBody.file()
     request: Request,
-    @param.header.string('authorization') authorization: string,
-    @param.query.string('itemId') itemId: string,
+    @param({"name": "authorization", "in": "header", "required": true}) authorization: string,
+    @param({"name": "itemId", "in": "query", "required": true}) itemId: string,
     @inject(RestBindings.Http.RESPONSE) response: Response,
   ): Promise<object> {
     const email = await getEmailFromHeader(authorization);

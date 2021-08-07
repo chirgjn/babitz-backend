@@ -41,8 +41,8 @@ export class OrderAndPaymentController {
     content: {'application/json': {schema: getModelSchemaRef(Order)}},
   })
   async placeOrder(
-    @param.header.string('authorization') authorization: string,
-    @param.query.string('restaurantId') restaurantId: string,
+    @param({"name": "authorization", "in": "header", "required": true}) authorization: string,
+    @param({"name": "restaurantId", "in": "query", "required": true}) restaurantId: string,
   ): Promise<Order> {
     const email = await getEmailFromHeader(authorization);
     if (!email) {
@@ -100,8 +100,8 @@ export class OrderAndPaymentController {
     },
   })
   async getCurrentOrders(
-    @param.query.string('restaurantId') restaurantId: string,
-    @param.header.string('authorization') authorization: string,
+    @param({"name": "restaurantId", "in": "query", "required": true}) restaurantId: string,
+    @param({"name": "authorization", "in": "header", "required": true}) authorization: string,
   ): Promise<Order[]> {
     const email = await getEmailFromHeader(authorization);
     if (!email) {
@@ -139,8 +139,8 @@ export class OrderAndPaymentController {
     },
   })
   async pastOrdersForUser(
-    @param.header.string('authorization') authorization: string,
-    @param.query.string('restaurantId') restaurantId: string,
+    @param({"name": "authorization", "in": "header", "required": true}) authorization: string,
+    @param({"name": "restaurantId", "in": "query", "required": true}) restaurantId: string,
   ): Promise<OrderHistory[]> {
     const email = await getEmailFromHeader(authorization);
     if (!email) {
@@ -178,7 +178,7 @@ export class OrderAndPaymentController {
     },
   })
   async pastOrdersForRestaurant(
-    @param.header.string('authorization') authorization: string,
+    @param({"name": "authorization", "in": "header", "required": true}) authorization: string,
   ): Promise<OrderHistory[]> {
     const email = await getEmailFromHeader(authorization);
     if (!email) {
@@ -206,9 +206,9 @@ export class OrderAndPaymentController {
     },
   })
   async acceptOrRejectOrder(
-    @param.header.string('authorization') authorization: string,
-    @param.query.string('decision') decision: string,
-    @param.query.string('orderId') orderId: string,
+    @param({"name": "authorization", "in": "header", "required": true}) authorization: string,
+    @param({"name": "decision", "in": "query", "required": true}) decision: string,
+    @param({"name": "orderId", "in": "query", "required": true}) orderId: string,
   ): Promise<Order> {
     const email = await getEmailFromHeader(authorization);
     if (!email) {
@@ -246,8 +246,8 @@ export class OrderAndPaymentController {
     },
   })
   async acceptOrder(
-    @param.query.string('orderId') orderId: string,
-    @param.header.string('authorization') authorization: string,
+    @param({"name": "orderId", "in": "query", "required": true}) orderId: string,
+    @param({"name": "authorization", "in": "header", "required": true}) authorization: string,
   ): Promise<Order> {
     return this.acceptOrRejectOrder(authorization, 'accepted', orderId);
   };
@@ -264,8 +264,8 @@ export class OrderAndPaymentController {
     },
   })
   async rejectOrder(
-    @param.query.string('orderId') orderId: string,
-    @param.header.string('authorization') authorization: string,
+    @param({"name": "orderId", "in": "query", "required": true}) orderId: string,
+    @param({"name": "authorization", "in": "header", "required": true}) authorization: string,
   ): Promise<Order> {
     const order = await this.acceptOrRejectOrder(authorization, 'rejected', orderId);
     this.orderHistoryRepository.create(order);
@@ -284,8 +284,8 @@ export class OrderAndPaymentController {
     },
   })
   async completeOrder(
-    @param.query.string('orderId') orderId: string,
-    @param.header.string('authorization') authorization: string,
+    @param({"name": "orderId", "in": "query", "required": true}) orderId: string,
+    @param({"name": "authorization", "in": "header", "required": true}) authorization: string,
   ): Promise<Order> {
     const order = await this.acceptOrRejectOrder(authorization, 'complete', orderId);
     this.orderHistoryRepository.create(order);
@@ -304,7 +304,7 @@ export class OrderAndPaymentController {
     },
   })
   async currentOrdersForRestaurant(
-    @param.header.string('authorization') authorization: string,
+    @param({"name": "authorization", "in": "header", "required": true}) authorization: string,
   ): Promise<Order[]> {
     const email = await getEmailFromHeader(authorization);
     if (!email) {
@@ -332,8 +332,8 @@ export class OrderAndPaymentController {
     },
   })
   async pay(
-    @param.query.string('orderId') orderId: string,
-    @param.header.string('authorization') authorization: string,
+    @param({"name": "orderId", "in": "query", "required": true}) orderId: string,
+    @param({"name": "authorization", "in": "header", "required": true}) authorization: string,
 
   ): Promise<Order> {
     const email = await getEmailFromHeader(authorization);

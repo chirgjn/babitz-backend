@@ -44,7 +44,7 @@ export class MyRestaurantController {
       },
     })
     restaurant: Omit<Restaurant, 'id'>,
-    @param.header.string('authorization') authorization: string,
+    @param({"name": "authorization", "in": "header", "required": true}) authorization: string,
   ): Promise<Restaurant> {
     const email = await getEmailFromHeader(authorization);
     if (!email) {
@@ -67,7 +67,7 @@ export class MyRestaurantController {
     },
   })
   async getMyRestaurantDetails(
-    @param.header.string('authorization') authorization: string,
+    @param({"name": "authorization", "in": "header", "required": true}) authorization: string,
   ): Promise<Restaurant> {
     const email = await getEmailFromHeader(authorization);
     if (!email) {
@@ -95,7 +95,7 @@ export class MyRestaurantController {
       },
     })
     restaurant: Restaurant,
-    @param.header.string('authorization') authorization: string,
+    @param({"name": "authorization", "in": "header", "required": true}) authorization: string,
   ): Promise<Restaurant | null> {
     const email = await getEmailFromHeader(authorization);
     if (!email) {
@@ -131,7 +131,7 @@ export class MyRestaurantController {
       },
     })
     items: [Omit<Item, 'id'>],
-    @param.header.string('authorization') authorization: string,
+    @param({"name": "authorization", "in": "header", "required": true}) authorization: string,
   ): Promise<Item[]> {
     const email = await getEmailFromHeader(authorization);
     if (!email) {
@@ -162,8 +162,8 @@ export class MyRestaurantController {
       },
     })
     item: Item,
-    @param.query.string('itemId') itemId: string,
-    @param.header.string('authorization') authorization: string,
+    @param({"name": "itemId", "in": "query", "required": true}) itemId: string,
+    @param({"name": "authorization", "in": "header", "required": true}) authorization: string,
   ): Promise<Item | null> {
     const email = await getEmailFromHeader(authorization);
     if (!email) {
@@ -191,7 +191,7 @@ export class MyRestaurantController {
     },
   })
   async find(
-    @param.header.string('authorization') authorization: string,
+    @param({"name": "authorization", "in": "header", "required": true}) authorization: string,
   ): Promise<Item[]> {
     const email = await getEmailFromHeader(authorization);
     if (!email) {
@@ -211,8 +211,8 @@ export class MyRestaurantController {
     description: 'Item DELETE success',
   })
   async deleteById(
-    @param.query.string('id') id: string,
-    @param.header.string('authorization') authorization: string,
+    @param({"name": "id", "in": "query", "required": true}) id: string,
+    @param({"name": "authorization", "in": "header", "required": true}) authorization: string,
   ): Promise<void> {
     const email = await getEmailFromHeader(authorization);
     if (!email) {
