@@ -10,7 +10,7 @@ import {
   requestBody,
   RequestContext,
   response,
-  RestHttpErrors,
+  RestHttpErrors
 } from '@loopback/rest';
 import HttpErrors from 'http-errors';
 import {getEmailFromHeader} from '../lib/header-parser';
@@ -25,7 +25,7 @@ export class MyRestaurantController {
     public itemRepository: ItemRepository,
     @repository(RestaurantRepository)
     public restaurantRepository: RestaurantRepository,
-  ) {}
+  ) { }
 
   @post('/myrestaurant')
   @response(200, {
@@ -198,7 +198,12 @@ export class MyRestaurantController {
       throw RestHttpErrors.missingRequired('{ authorization Header }');
     }
     const whereFilter: Where = {where: {email: email}};
-    return this.itemRepository.find(whereFilter);
+    const restaurant = await this.restaurantRepository.findOne(whereFilter);
+    if (restaurant) {
+      return this.itemRepository.find(whereFilter);
+    } else {
+      throw new HttpErrors.NotFound('restaurant not registered');
+    }
   }
   @del('/deleteItem')
   @response(204, {
