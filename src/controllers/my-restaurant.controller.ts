@@ -200,7 +200,8 @@ export class MyRestaurantController {
     const whereFilter: Where = {where: {email: email}};
     const restaurant = await this.restaurantRepository.findOne(whereFilter);
     if (restaurant) {
-      return this.itemRepository.find(whereFilter);
+      let itemFilter: Where = {where: {restaurantId: restaurant.id}};
+      return this.itemRepository.find(itemFilter);
     } else {
       throw new HttpErrors.NotFound('restaurant not registered');
     }
