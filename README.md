@@ -1,7 +1,6 @@
 # Babitz
-
-This application is generated using [LoopBack 4 CLI](https://loopback.io/doc/en/lb4/Command-line-interface.html) with the
-[initial project layout](https://loopback.io/doc/en/lb4/Loopback-application-layout.html).
+This is a [Loopback4](https://loopback.io/doc/en/lb4/index.html) project. If you want to know more about Babitz, you can read the checkout the main project [repo](https://github.com/pesto-students/babitz).
+This is the api server for Babitz.
 
 ## Install dependencies
 
@@ -10,6 +9,14 @@ Whenever dependencies in `package.json` are changed, run the following command:
 
 ```sh
 yarn install
+```
+## Install [Postgres Database](https://www.postgresql.org)
+We use postgres for our database requirements. 
+
+## [Migrate](https://loopback.io/doc/en/lb4/Database-migrations.html) database schema
+
+```sh
+yarn run migrate
 ```
 
 ## Run the application
@@ -61,9 +68,5 @@ yarn run lint:fix
 yarn test
 ```
 
-## What's next
-
-Please check out [LoopBack 4 documentation](https://loopback.io/doc/en/lb4/) to
-understand how you can continue to add features to this application.
-
-[![LoopBack](https://github.com/strongloop/loopback-next/raw/master/docs/site/imgs/branding/Powered-by-LoopBack-Badge-(blue)-@2x.png)](http://loopback.io/)
+## Want to contribute?
+If you wish to contribute, please go through the [contribution guidelines](https://github.com/pesto-students/babitz-backend/blob/main/Contributing.md). 
